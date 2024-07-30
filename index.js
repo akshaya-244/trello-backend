@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs');
 const { UsersData, TaskData } = require("./db/mongodb")
 
 const app=express()
-const port=3001
+const port=8000
 
 app.use(express.json())
 app.use(cors())
@@ -132,8 +132,8 @@ app.delete('/deleteTask' , authenticateToken,async(req,res)=>{
     })
 })
 
-// app.listen(port, () => {
-//     console.log("Listening")
-// })
+app.listen(port, () => {
+    console.log("Listening")
+})
 
-module.exports.handler = serverless(app);
+// module.exports.handler = serverless(app);
