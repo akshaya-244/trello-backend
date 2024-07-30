@@ -23,14 +23,25 @@ app.post('/signup',async (req, res) => {
     const {name, email, password}=req.body;
     const hashedPassword=await bcrypt.hash(password,10);
     try{
-        const response= await UsersData.create({
-            name,
-            email, 
-            hashedPassword
-        })
-        res.json({
-          response
-        })
+        const checkIfAlreadyPresent=await UsersData.findOne({email})
+        console.log(checkIfAlreadyPresent)
+        if(!checkIfAlreadyPresent){
+            const response= await UsersData.create({
+                name,
+                email, 
+                hashedPassword
+            })
+            res.json({
+                response
+              })
+        }
+        else{
+            res.json({
+                msg:"Email already in use!"
+            })
+        }
+        
+       
     }
     catch(error)
     {
